@@ -23,6 +23,7 @@
     "@angular/router": "~12.1.1",
     "alert": "^5.0.10",
     "angular-reactive-form": "^1.0.0",
+    "bootstrap": "^5.0.0-beta3",
     "cors": "2.8.5",
     "express": "4.17.1",
     "moment": "^2.29.1",

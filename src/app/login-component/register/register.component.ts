@@ -30,11 +30,11 @@ import {
   Router
 } from '@angular/router';
 
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import * as _moment from 'moment'
-import {defaultFormat as _rollupMoment} from 'moment';
+import { defaultFormat as _rollupMoment } from 'moment';
 
 const moment = _rollupMoment || _moment;
 
@@ -59,7 +59,7 @@ export const MY_FORMATS = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
 
   ],
 })
@@ -78,8 +78,9 @@ export class RegisterComponent implements OnInit {
 
   minDate: Date;
   maxDate: Date;
+  items!: FormArray;
 
-  constructor(private _formBuilder: FormBuilder, private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
@@ -87,7 +88,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
+    this.firstFormGroup = this.formBuilder.group({
       fName: ['', Validators.required],
       lName: ['', Validators.required],
       mobile: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]],
@@ -97,15 +98,16 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.minLength(8)]],
     });
-    this.secondFormGroup = this._formBuilder.group({
+    this.secondFormGroup = this.formBuilder.group({
       course: ['', Validators.required],
       courseName: ['', Validators.required],
       instName: ['', Validators.required],
       fromYr: ['', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]],
       toYr: ['', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]],
       cgpa: ['', Validators.required],
+      items: this.formBuilder.array([ this.createItem() ])
     });
-    this.thirdFormGroup = this._formBuilder.group({
+    this.thirdFormGroup = this.formBuilder.group({
       aboutUser: ['', Validators.required],
       compName: ['', Validators.required],
       jobTitle: ['', Validators.required],
@@ -113,7 +115,7 @@ export class RegisterComponent implements OnInit {
       toYr: ['', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]],
       aboutJob: ['', Validators.required],
     })
-    this.forthFormGroup = this._formBuilder.group({
+    this.forthFormGroup = this.formBuilder.group({
       skillName: ['', Validators.required],
       langName: ['', Validators.required],
       skillRating: ['', Validators.required],
@@ -121,7 +123,7 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  onLogoClick(): void{
+  onLogoClick(): void {
     this.router.navigate([''])
   }
 
@@ -306,8 +308,35 @@ export class RegisterComponent implements OnInit {
         //console.log(res)
         this.router.navigate(['/profile'])
       })
-      
+
   }
 
+  
+  createItem(): FormGroup {
+    return this.formBuilder.group({
+      items: ['', Validators.required],
+      course: ['', Validators.required],
+      courseName: ['', Validators.required],
+      instName: ['', Validators.required],
+      fromYr: ['', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]],
+      toYr: ['', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]],
+      cgpa: ['', Validators.required],
+    });
+  }
+  addItem(): void {
+    this.items = this.secondFormGroup.get('items') as FormArray;
+    this.items.push(this.createItem());
+  }
 
+  get userFormGroups () {
+    return this.secondFormGroup.get('items') as FormArray
+  }
+
+  removeQuantity(i:number) {
+    if(i >= 1) {
+    this.userFormGroups.removeAt(i);  
+  }
+  }  
+
+//Check this https://www.javatpoint.com/dynamically-add-and-remove-fields-in-angular
 }
