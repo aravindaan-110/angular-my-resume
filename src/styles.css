@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+
+html,
+body {
+  max-height: 120%;
+  background-color: #303030;
+  font-family: 'Shadows Into Light', cursive;
+}
+
+body {
+  margin: 0;
+
+}

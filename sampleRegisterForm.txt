@@ -1,0 +1,157 @@
+<mat-toolbar color="primary" class="mat-elevation-z5">
+  <span>
+    <mat-icon>print</mat-icon> myResume
+  </span>
+
+  <div class="spacer"></div>
+  <a mat-button>About</a>
+  <a mat-button>Contact</a>
+  <a mat-raised-button color="warn" (click)="onLogout()">Logout</a>
+</mat-toolbar>
+
+<mat-card class="container">
+  <mat-card-title class="title">
+    Register Here!
+  </mat-card-title>
+  <mat-card-content>
+    <mat-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="registerForm">
+          <ng-template matStepLabel>Education Details</ng-template>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input formControlName="fName" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['fName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lName" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['lName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dob">
+            <mat-error *ngIf="registerForm.controls['dob'].errors?.required">Cannot be empty!</mat-error>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Mobile</mat-label>
+            <input formControlName="mobile" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['mobile'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="registerForm.controls['mobile'].errors?.minlength">10 characters!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>LinkedIn Profile</mat-label>
+            <input formControlName="linkedin" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['linkedin'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Residing Location</mat-label>
+            <input formControlName="location" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['location'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="">
+            <mat-error>Invalid format!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Enter your password</mat-label>
+            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+            <mat-error *ngIf="registerForm.controls['password'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].errors?.minlength">Min. 6 characters!</mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="eduForm">
+          <ng-template matStepLabel>Work Details</ng-template>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input formControlName="fName" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['fName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lName" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['lName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dob">
+            <mat-error *ngIf="registerForm.controls['dob'].errors?.required">Cannot be empty!</mat-error>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Mobile</mat-label>
+            <input formControlName="mobile" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['mobile'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="registerForm.controls['mobile'].errors?.minlength">10 characters!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>LinkedIn Profile</mat-label>
+            <input formControlName="linkedin" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['linkedin'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Residing Location</mat-label>
+            <input formControlName="location" matInput placeholder="">
+            <mat-error *ngIf="registerForm.controls['location'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="">
+            <mat-error>Invalid format!</mat-error>
+          </mat-form-field> <br>
+
+          <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Enter your password</mat-label>
+            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
+            <mat-error *ngIf="registerForm.controls['password'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="registerForm.controls['password'].errors?.minlength">Min. 6 characters!</mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+    </mat-stepper>
+
+
+  </mat-card-content>
+
+  <mat-card-actions align=end>
+
+    <!-- <button mat-raised-button color="warn" (click)="onRegister()">Register</button> -->
+    <button mat-raised-button color="accent" (click)="onClick()" [disabled]="registerForm.invalid">Next</button>
+
+  </mat-card-actions>
+</mat-card>

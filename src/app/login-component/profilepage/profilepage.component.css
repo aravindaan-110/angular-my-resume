@@ -1,0 +1,35 @@
+.container {
+  height: 200px;
+}
+
+.example-card {
+  margin-left: 250px;
+  margin-top: 20px;
+  max-width: 300px;
+  height: 490px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.header-buttons {
+  margin-right: 20px;
+}
+
+.example-header-image {
+  background-image: url(../../../assets/complete-print.svg);
+  background-size: cover;
+}
+
+.example-card-2 {
+  margin-left: 800px;
+  margin-top: -520px;
+  max-width: 300px;
+  height: 490px;
+}
+
+.example-header-image-2 {
+  background-image: url(../../../assets/complete-print.svg);
+  background-size: cover;
+}

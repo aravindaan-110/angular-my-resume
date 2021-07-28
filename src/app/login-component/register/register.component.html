@@ -1,0 +1,230 @@
+<mat-toolbar color="primary" class="mat-elevation-z5">
+  <span class="print_icon" (click)="onLogoClick()">
+    <mat-icon>print</mat-icon> myResume
+  </span>
+
+  <div class="spacer"></div>
+  <a mat-button>About</a>
+  <a mat-button>Contact</a>
+  <a mat-raised-button color="warn">Logout</a>
+</mat-toolbar>
+
+<mat-card class="card_container">
+  <mat-card-title>Enter your details!</mat-card-title>
+  <mat-card-content class="card_content">
+    <mat-stepper [linear]="isLinear" #stepper class=stepper_container>
+      <mat-step [stepControl]="firstFormGroup" label="Basic details" [editable]="isEditable">
+        <form [formGroup]="firstFormGroup">
+
+          <ng-template matStepLabel>Basic info</ng-template>
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>First name</mat-label>
+            <input matInput placeholder="" formControlName="fName" required>
+            <mat-error *ngIf="firstFormGroup.controls['fName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lName" matInput placeholder="" required>
+            <mat-error *ngIf="firstFormGroup.controls['lName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>DOB</mat-label>
+            <input matInput [matDatepicker]="dp" formControlName="dob">
+            <mat-error *ngIf="firstFormGroup.controls['dob'].errors?.required">Cannot be empty!</mat-error>
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #dp></mat-datepicker>
+          </mat-form-field> <br>
+
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Mobile</mat-label>
+            <input formControlName="mobile" matInput placeholder="" required>
+            <mat-error *ngIf="firstFormGroup.controls['mobile'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="firstFormGroup.controls['mobile'].errors?.minlength">Must be 10 characters!</mat-error>
+            <mat-error *ngIf="firstFormGroup.controls['mobile'].errors?.maxlength">You have exceeded 10 characters!
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>LinkedIn Profile</mat-label>
+            <input formControlName="linkedin" matInput placeholder="" required>
+            <mat-error *ngIf="firstFormGroup.controls['linkedin'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Residing Location</mat-label>
+            <input formControlName="location" matInput placeholder="" required>
+            <mat-error *ngIf="firstFormGroup.controls['location'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field> <br> <br>
+
+          <mat-form-field class="example-full-width-desc" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="" required>
+            <mat-error>Invalid format!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-desc" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
+            <mat-error *ngIf="firstFormGroup.controls['password'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="firstFormGroup.controls['password'].errors?.minlength">Min. 8 characters!</mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperNext (click)="submitBasicInfo() "
+              [disabled]="firstFormGroup.invalid">Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Education Details" [editable]="isEditable">
+        <form [formGroup]="secondFormGroup">
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Course</mat-label>
+            <input formControlName="course" matInput placeholder="Ex. B.E | B.Tech" required>
+            <mat-error *ngIf="secondFormGroup.controls['course'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Course Name</mat-label>
+            <input formControlName="courseName" matInput placeholder="Ex. CSE | ECE" required>
+            <mat-error *ngIf="secondFormGroup.controls['courseName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Inst. Name</mat-label>
+            <input formControlName="instName" matInput placeholder="College/School name" required>
+            <mat-error *ngIf="secondFormGroup.controls['instName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>From Year</mat-label>
+            <input formControlName="fromYr" matInput placeholder="YYYY" required>
+            <mat-error *ngIf="secondFormGroup.controls['fromYr'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="secondFormGroup.controls['fromYr'].errors?.maxlength">Enter a valid year!</mat-error>
+            <mat-error *ngIf="secondFormGroup.controls['fromYr'].errors?.minlength">Enter a valid year!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>To Year</mat-label>
+            <input formControlName="toYr" matInput placeholder="YYYY" required>
+            <mat-error *ngIf="secondFormGroup.controls['toYr'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="secondFormGroup.controls['toYr'].errors?.maxlength">Enter a valid year!</mat-error>
+            <mat-error *ngIf="secondFormGroup.controls['toYr'].errors?.minlength">Enter a valid year!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>CGPA</mat-label>
+            <input formControlName="cgpa" matInput placeholder="Ex. 8.52" required>
+            <mat-error *ngIf="secondFormGroup.controls['cgpa'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="warn" (click)="onAdd2()">
+            <mat-icon>add</mat-icon>
+          </button> <br>
+
+          <button mat-button matStepperNext [disabled]="secondFormGroup.invalid" (click)="submitEduInfo()">Next</button>
+
+
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup" label="Work Details" [editable]="isEditable">
+        <form [formGroup]="thirdFormGroup">
+
+          <mat-form-field class="example-full-width-desc" appearance="fill">
+            <mat-label>About Youself</mat-label>
+            <textarea formControlName="aboutUser" matInput placeholder="Few lines about youself..." required></textarea>
+            <mat-error *ngIf="thirdFormGroup.controls['aboutUser'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Company Name</mat-label>
+            <input formControlName="compName" matInput placeholder="Few lines about youself..." required>
+            <mat-error *ngIf="thirdFormGroup.controls['compName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>Job Title</mat-label>
+            <input formControlName="jobTitle" matInput placeholder="Few lines about youself..." required>
+            <mat-error *ngIf="thirdFormGroup.controls['jobTitle'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>From Year</mat-label>
+            <input formControlName="fromYr" matInput placeholder="YYYY" required>
+            <mat-error *ngIf="thirdFormGroup.controls['fromYr'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="thirdFormGroup.controls['fromYr'].errors?.maxlength">Enter a valid year!</mat-error>
+            <mat-error *ngIf="thirdFormGroup.controls['fromYr'].errors?.minlength">Enter a valid year!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-yr" appearance="fill">
+            <mat-label>To Year</mat-label>
+            <input formControlName="toYr" matInput placeholder="YYYY" required>
+            <mat-error *ngIf="thirdFormGroup.controls['toYr'].errors?.required">Cannot be empty!</mat-error>
+            <mat-error *ngIf="thirdFormGroup.controls['toYr'].errors?.maxlength">Enter a valid year!</mat-error>
+            <mat-error *ngIf="thirdFormGroup.controls['toYr'].errors?.minlength">Enter a valid year!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width-desc" appearance="fill">
+            <mat-label>Job Description</mat-label>
+            <textarea formControlName="aboutJob" matInput placeholder="Few lines about the job..." required></textarea>
+            <mat-error *ngIf="thirdFormGroup.controls['aboutJob'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <div>
+            <button mat-raised-button color="warn" (click)="onAdd3()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-button matStepperNext [disabled]="thirdFormGroup.invalid"
+              (click)="submitWorkInfo()">Next</button>
+          </div>
+
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="forthFormGroup" label="Add Skills" [editable]="isEditable" class="forth_title">
+        <form [formGroup]="forthFormGroup">
+
+          <mat-form-field class="example-full-width-four" appearance="fill">
+            <mat-label>Skill</mat-label>
+            <input formControlName="skillName" matInput placeholder="" required>
+            <mat-error *ngIf="forthFormGroup.controls['skillName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-slider class="example-full-width-four" aria-label="Rate" min="1" max="5" step="1"
+            formControlName="skillRating" thumbLabel tickInterval="1"></mat-slider>
+
+          <button mat-raised-button color="warn" (click)="onAddSkill()">
+            <mat-icon>add</mat-icon>
+          </button> <br>
+
+          <mat-form-field class="example-full-width-four" appearance="fill">
+            <mat-label>Language</mat-label>
+            <input formControlName="langName" matInput placeholder="Ex. Tamil , Telugu , Hindi" required>
+            <mat-error *ngIf="forthFormGroup.controls['langName'].errors?.required">Cannot be empty!</mat-error>
+          </mat-form-field>
+
+          <mat-slider class="example-full-width-four" aria-label="Rate" min="1" max="5" step="1"
+            formControlName="langRating" thumbLabel tickInterval="1"></mat-slider>
+          <button mat-raised-button color="warn" (click)="onAddLang()">
+            <mat-icon>add</mat-icon>
+          </button>
+
+          <div>
+
+            <button color="primary" mat-raised-button matStepperNext [disabled]="forthFormGroup.invalid"
+              (click)="submitSkillInfo()">Submit</button>
+          </div>
+
+
+        </form>
+      </mat-step>
+    </mat-stepper>
+  </mat-card-content>
+</mat-card>
