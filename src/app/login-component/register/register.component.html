@@ -14,22 +14,23 @@
   <mat-card-content class="card_content">
     <mat-stepper [linear]="isLinear" #stepper class=stepper_container>
       <mat-step [stepControl]="firstFormGroup" label="Basic details" [editable]="isEditable">
-        <form [formGroup]="firstFormGroup">
+        <form [formGroup]="firstFormGroup" class="row">
 
           <ng-template matStepLabel>Basic info</ng-template>
-          <mat-form-field class="example-full-width-yr" appearance="fill">
+          
+          <mat-form-field class="example-full-width-yr" appearance="fill" class="col-4">
             <mat-label>First name</mat-label>
             <input matInput placeholder="" formControlName="fName" required>
             <mat-error *ngIf="firstFormGroup.controls['fName'].errors?.required">Cannot be empty!</mat-error>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width-yr" appearance="fill">
+          <mat-form-field class="example-full-width-yr" appearance="fill" class="col-4">
             <mat-label>Last Name</mat-label>
             <input formControlName="lName" matInput placeholder="" required>
             <mat-error *ngIf="firstFormGroup.controls['lName'].errors?.required">Cannot be empty!</mat-error>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width-yr" appearance="fill">
+          <mat-form-field class="example-full-width-yr" appearance="fill" class="col-4">
             <mat-label>DOB</mat-label>
             <input matInput [matDatepicker]="dp" formControlName="dob">
             <mat-error *ngIf="firstFormGroup.controls['dob'].errors?.required">Cannot be empty!</mat-error>
@@ -38,7 +39,7 @@
           </mat-form-field> <br>
 
 
-          <mat-form-field class="example-full-width-yr" appearance="fill">
+          <mat-form-field class="example-full-width-yr" appearance="fill" class="col-4">
             <mat-label>Mobile</mat-label>
             <input formControlName="mobile" matInput placeholder="" required>
             <mat-error *ngIf="firstFormGroup.controls['mobile'].errors?.required">Cannot be empty!</mat-error>
@@ -47,25 +48,25 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width-yr" appearance="fill">
+          <mat-form-field class="example-full-width-yr" appearance="fill" class="col-4">
             <mat-label>LinkedIn Profile</mat-label>
             <input formControlName="linkedin" matInput placeholder="" required>
             <mat-error *ngIf="firstFormGroup.controls['linkedin'].errors?.required">Cannot be empty!</mat-error>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width-yr" appearance="fill">
+          <mat-form-field class="example-full-width-yr" appearance="fill" class="col-4">
             <mat-label>Residing Location</mat-label>
             <input formControlName="location" matInput placeholder="" required>
             <mat-error *ngIf="firstFormGroup.controls['location'].errors?.required">Cannot be empty!</mat-error>
           </mat-form-field> <br> <br>
 
-          <mat-form-field class="example-full-width-desc" appearance="fill">
+          <mat-form-field class="example-full-width-desc" appearance="fill" class="col-4">
             <mat-label>Email</mat-label>
             <input formControlName="email" matInput placeholder="" required>
             <mat-error>Invalid format!</mat-error>
           </mat-form-field>
 
-          <mat-form-field class="example-full-width-desc" appearance="fill">
+          <mat-form-field class="example-full-width-desc" appearance="fill" class="col-4">
             <mat-label>Password</mat-label>
             <input formControlName="password" matInput [type]="hide ? 'password' : 'text'" required>
             <mat-error *ngIf="firstFormGroup.controls['password'].errors?.required">Cannot be empty!</mat-error>
@@ -77,16 +78,18 @@
           </mat-form-field>
 
           <div>
-            <button mat-button matStepperNext (click)="submitBasicInfo() "
-              [disabled]="firstFormGroup.invalid">Next</button>
+            <button mat-button matStepperNext (click)="submitBasicInfo()"
+              [disabled]="firstFormGroup.invalid" class="nextButton">Next</button>
           </div>
 
         </form>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup" label="Education Details" [editable]="isEditable">
         <form [formGroup]="secondFormGroup">
+          <div formArrayName="items" *ngFor="let item of userFormGroups.controls; let i = index;">
+            <div [formGroupName]="i">
 
-          <mat-form-field class="example-full-width-yr" appearance="fill">
+              <mat-form-field class="example-full-width-yr" appearance="fill">
             <mat-label>Course</mat-label>
             <input formControlName="course" matInput placeholder="Ex. B.E | B.Tech" required>
             <mat-error *ngIf="secondFormGroup.controls['course'].errors?.required">Cannot be empty!</mat-error>
@@ -125,14 +128,16 @@
             <input formControlName="cgpa" matInput placeholder="Ex. 8.52" required>
             <mat-error *ngIf="secondFormGroup.controls['cgpa'].errors?.required">Cannot be empty!</mat-error>
           </mat-form-field>
-
-          <button mat-raised-button color="warn" (click)="onAdd2()">
+          <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>  
+        </div>
+      </div>
+          <button mat-raised-button color="warn" (click)=" addItem()">
             <mat-icon>add</mat-icon>
           </button> <br>
-
+        
           <button mat-button matStepperNext [disabled]="secondFormGroup.invalid" (click)="submitEduInfo()">Next</button>
-
-
+   
+       
         </form>
       </mat-step>
       <mat-step [stepControl]="thirdFormGroup" label="Work Details" [editable]="isEditable">
